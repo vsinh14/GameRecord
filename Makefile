@@ -6,4 +6,4 @@ run:
 play:
 	$(PL) Recording1.*
 clean:
-	rm -Rf .*.png *.avi *.mp4
+	rm -Rf .*.png *.avi *.mp4 *.png

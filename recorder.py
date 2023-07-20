@@ -1,12 +1,11 @@
 # importing the required packages
-import pyautogui
 import cv2
 import numpy as np
 import json
 import time
 import threading
 
-
+import mss
 
 #open settings json
 jOpen = open("config.json")
@@ -34,17 +33,19 @@ cv2.namedWindow("Live", cv2.WINDOW_NORMAL)
 cv2.resizeWindow("Live", 480, 240)
 while True:
     # Take screenshot using PyAutoGUI
-    #100ms so capped at 10fps need to find new implementation 
-    img = pyautogui.screenshot()
-    # Convert the screenshot to a numpy array
-    frame = np.array(img)
+    with mss.mss() as mss_instance:  # Create a new mss.mss instance
+        monitor_1 = mss_instance.monitors[1]  # Identify the display to capture
+
+   #100ms so capp    # Convert the screenshot to a numpy array
+        img = mss_instance.grab(monitor_1)  # Take the screenshot
+        frame = np.array(img)
 
     # Convert it from BGR(Blue, Green, Red) to
     # RGB(Red, Green, Blue)
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGRA2RGB)
 
     # Write it to the output file
-    out.write(frame)
+        out.write(frame)
 
     # Optional: Display the recording screen
     #cv2.imshow('Live', frame)
