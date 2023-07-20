@@ -20,25 +20,22 @@ codec = cv2.VideoWriter_fourcc(*"mp4v")
 
 # Specify name of Output file
 filename = settings["fileName"] 
-print(filename)
 
 # Specify frames rate. We can choose any
 # value and experiment with it
 fps = int(settings["frameRate"])
-print(fps)
 
 # Creating a VideoWriter object
 out = cv2.VideoWriter(filename, codec, fps, resolution)
 
 # Create an Empty window
 cv2.namedWindow("Live", cv2.WINDOW_NORMAL)
-
 # Resize this window
-cv2.resizeWindow("Live", 1280, 720)
+cv2.resizeWindow("Live", 480, 240)
 while True:
     # Take screenshot using PyAutoGUI
+    #100ms so capped at 10fps need to find new implementation 
     img = pyautogui.screenshot()
-
     # Convert the screenshot to a numpy array
     frame = np.array(img)
 
@@ -50,7 +47,7 @@ while True:
     out.write(frame)
 
     # Optional: Display the recording screen
-    cv2.imshow('Live', frame)
+    #cv2.imshow('Live', frame)
     # Stop recording when we press 'q'
     if cv2.waitKey(10) == ord('q'):
         break
