@@ -2,9 +2,17 @@
 import pyautogui
 import cv2
 import numpy as np
+import json
 
+
+
+#open settings json
+jOpen = open("config.json")
+
+settings = json.load(jOpen)
+vidDimSplit = settings["resolution"].split()
 # Specify resolution
-resolution = (1920, 1080)
+resolution = ((int(vidDimSplit[0]), int(vidDimSplit[2])))
 
 # Specify video codec
 codec = cv2.VideoWriter_fourcc(*"XVID")
